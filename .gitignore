@@ -2,3 +2,6 @@ __pycache__
 .venv
 settings.py
 datasets
+.gradio
+upload_data
+milvus_demo.db

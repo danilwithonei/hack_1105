@@ -4,7 +4,12 @@ from settings import host
 from sentence_transformers import SentenceTransformer
 from pymilvus import MilvusClient
 import re
+import os
+import shutil
+from pprint import pprint
 
+patg_to_upload = "upload_data"
+path_to_save_prompts = "results"
 
 def extract_integers_from_string(s):
     """
@@ -54,7 +59,7 @@ def test_inference(prompt, context):
 Ты специалист по работе с данными, ответь на вопрос используя контекст. Дай краткий ответ.
 Не придумывай новую информацию.
 Перед ответом верни номер текста из которго используешь информацию, используй только число. Пример: 1.
-Если используется несколько текстов перечисли их через запятую. Пример: 1,2,3.
+
 
 ## контекст
 {search_context}
@@ -83,58 +88,66 @@ def test_inference(prompt, context):
         },
     )
     answer = response["message"]["content"]
+    
     answer_lines = answer.split("\n")
     # print(answer_lines)
-    print(prompt2)
-
+    # print(prompt2)
+    # print(answer)
+    pprint(response["message"])
+    res_id = len(os.listdir(path_to_save_prompts))
+    with open(os.path.join(path_to_save_prompts,f"{res_id}.txt"),"w") as f:
+        res = f"{prompt}\n< --- >\n{search_context}"
+        f.write(res)
     number_of_texts = extract_integers_from_string(answer_lines[0])
     if -1 in number_of_texts:
         return "Нет информации."
     answer_text = "\n".join(answer_lines[1:])
-    file_names = ""
     for n_text in number_of_texts:
         if n_text<5:
-            file_names += f'\nfilename: {search_res[0][n_text]["entity"]["file_name"]}.pdf page: {search_res[0][n_text]["entity"]["page"]}'
+            answer_text += f'\nfilename: {search_res[0][n_text]["entity"]["file_name"]}.pdf page: {search_res[0][n_text]["entity"]["page"]}'
         else:
-           file_names = "E"
+           answer_text = "E"
 
-    prompt2 = f"""
-## Задание
-Ты специалист по работе с текстом. Кратко сформируй основную мысль полученого текста. Не упоминай номер текста.
-Не придумывай новые факты.
+#     prompt2 = f"""
+# ## Задание
+# Ты специалист по работе с текстом. Кратко сформируй основную мысль полученого текста. Не упоминай номер текста.
+# Не придумывай новые факты.
  
-## текст
-{answer_text}
+# ## текст
+# {answer_text}
 
-## ответ
-"""
-    response = client.chat(
-        model="llama3.1:8b",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt2,
-            },
-        ],
-        options={
-            "temperature": 0.0,
-            "seed": 808042,
-            "top_k": 20,
-            "top_p": 0.9,
-            "min_p": 0.0,
-            "tfs_z": 0.5,
-        },
-    )
-    print(prompt2)
-    # print(response["message"]["content"])
-    return response["message"]["content"]+file_names
+# ## ответ
+# """
+#     response = client.chat(
+#         model="llama3.1:8b",
+#         messages=[
+#             {
+#                 "role": "user",
+#                 "content": prompt2,
+#             },
+#         ],
+#         options={
+#             "temperature": 0.0,
+#             "seed": 808042,
+#             "top_k": 20,
+#             "top_p": 0.9,
+#             "min_p": 0.0,
+#             "tfs_z": 0.5,
+#         },
+#     )
+#     print(prompt2)
+#     # print(response["message"]["content"])
+    # return response["message"]["content"]+file_names
+    return answer_text
 
 
 def chat_response(message, history):
     return test_inference(message, message)
 
 
-def handle_file_upload(files):
+def handle_file_upload(files:list[str]):
+    for f in files:
+        shutil.copy(f,os.path.join(patg_to_upload,f.split("/")[-1]))
     return f"Вы загрузили {len(files)} файл(ов)."
 
 
@@ -150,4 +163,4 @@ demo = gr.TabbedInterface(
     [gr.ChatInterface(chat_response, type="messages"), iface2], ["bot", "file"]
 )
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(share=True)

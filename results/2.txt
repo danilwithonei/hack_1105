@@ -1,0 +1,57 @@
+Как за 10 лет изменилось количество телепрограмм, привлекающих более 4-х млн. зрителей в Великобритании?
+< --- >
+текст № 0:
+ In the UK, the number of TV programs attracting more than four million viewers declined by more than 50% in less than ten years,61 as viewers choose from a wide range of sources the ones that resonate the most with them. In music, recent research points to *glocalization*,
+62 where the rise of global streaming platforms correlates with a strengthening of local music. While musical hits in English used to dominate charts across countries, listeners now flock to local language artists. Forms may be global (e.g., rap music), but the expression is local (e.g., German rap music).
+As media usages become increasingly diverse, brands must reflect this evolution in how they approach their campaigns if they are to appeal to audiences. This includes acting to reduce potential bias in the technology they use.
+Models may be trained on datasets that contain human biases, for example, in representation of minorities in images that some groups use, and therefore, these models' outputs become biased themselves. This highlights the necessity for representation throughout the training and technology development. Ensuring diversity in marketing and product development teams and questioning tech partners on their training practices is key.
+Innovative technology can also be used to challenge traditional narratives and change attitudes, as illustrated by Orange's 
+текст № 1:
+ # Экосистема Телевизионного Контента Оказывает Возрастающее Воздействие
+на формирование total-видео в России Каждый третий россиянин смотрит вещание телеканалов через интернет
+
+|                       |      | 4. 60 минут (ток\-шоу)   | 0.5%   |
+|-----------------------|------|--------------------------|--------|
+|                       |      | 5. Беременна в 16        | 0.4%   |
+|                       |      | 6. Мистер X (шоу)        | 0,4%   |
+|                       |      | 7.  Художник (сериал)    | 0\-4%  |
+| l.  Пацанки (сериал)  | 1%   | 8. Comedy Club           | 0,4%   |
+| 2. Звезды в Африке    | 0.7% | 9. Тетя Марта (сериал)   | 0\-3%  |
+| (реалити\-шоу)        |      | 10. Вечер с Владимиром   | 0.3%   |
+| 3. Битва экстрасенсов | 0.6% | Соловьевым               |        |
+## Твгтз, Телефонный Опрос, Вся Россия, 15 Лет И Старше
+
+текст № 2:
+ 
+|                       |      | 4. 60 минут (ток\-шоу)   | 0.5%   |
+|-----------------------|------|--------------------------|--------|
+|                       |      | 5. Беременна в 16        | 0.4%   |
+|                       |      | 6. Мистер X (шоу)        | 0,4%   |
+|                       |      | 7.  Художник (сериал)    | 0\-4%  |
+| l.  Пацанки (сериал)  | 1%   | 8. Comedy Club           | 0,4%   |
+| 2. Звезды в Африке    | 0.7% | 9. Тетя Марта (сериал)   | 0\-3%  |
+| (реалити\-шоу)        |      | 10. Вечер с Владимиром   | 0.3%   |
+| 3. Битва экстрасенсов | 0.6% | Соловьевым               |        |
+## Твгтз, Телефонный Опрос, Вся Россия, 15 Лет И Старше
+
+текст № 3:
+ на формирование total-видео в России Каждый третий россиянин смотрит вещание телеканалов через интернет
+
+|                       |      | 4. 60 минут (ток\-шоу)   | 0.5%   |
+|-----------------------|------|--------------------------|--------|
+|                       |      | 5. Беременна в 16        | 0.4%   |
+|                       |      | 6. Мистер X (шоу)        | 0,4%   |
+|                       |      | 7.  Художник (сериал)    | 0\-4%  |
+| l.  Пацанки (сериал)  | 1%   | 8. Comedy Club           | 0,4%   |
+| 2. Звезды в Африке    | 0.7% | 9. Тетя Марта (сериал)   | 0\-3%  |
+| (реалити\-шоу)        |      | 10. Вечер с Владимиром   | 0.3%   |
+| 3. Битва экстрасенсов | 0.6% | Соловьевым               |        |
+## Твгтз, Телефонный Опрос, Вся Россия, 15 Лет И Старше
+
+текст № 4:
+ 
+125 минут в день
+
+Среднее время смотрения на SmartTV
+10 млн зрителей Пик в вечерние часы Ключевые обновления и запуски 2023 года Запуск отдельных приложений для мобильных устройств и ТВ
+ Расширение линейки эксклюзивного контента на платформе Новый личный кабинет пользователя
