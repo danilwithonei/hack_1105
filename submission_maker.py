@@ -28,10 +28,11 @@ OUTPUT = 'sumbission.csv'
 data = read_xlsx(INPUT)
 print(data)
 
-rag = rag.RAG(ollama_host = HOST, milvus_uri = MILVUS_DB, debug = not True)
+rag = rag.RAG(ollama_host = HOST, milvus_uri = MILVUS_DB, debug = True)
 
 with open(OUTPUT, 'w') as f:
     f.write('question, answer, filename, slide_number\n')
     for ind, (question, answer, filename, slide_number) in enumerate(tqdm(data)):
         answer, _, filename, slide_number = rag.tree(question)
+        answer = answer.replace(',', '')
         f.write('{},{},{},{}\n'.format(question, answer, filename, slide_number ))

@@ -87,7 +87,7 @@ class RAG:
                 is_ok = self.extract_integers_from_string(is_ok)
                 if len(is_ok) == 1:
                     if not(name in file_names) and is_ok[0] == 1:
-                        search_context += f'Текст №{i}\n {res["entity"]["text"]}\n'
+                        search_context += f'\n{search_result[ind]["entity"]["text"]}\n'
                         file_names.append(name)
                         if len(best_file_info) == 0:
                             best_file_info.append(search_result[ind]["entity"]["file_name"])
@@ -96,7 +96,7 @@ class RAG:
 
         if len(file_names) == 0:
             return templates.error_no_data, templates.error_no_data, None, None
-        
+
         short_answer = self.llm_inference(template=template, question=question, context=search_context)
 
         answer_text = templates.db_answer_template.format(answer=short_answer, files=''.join(file_names))
@@ -130,41 +130,36 @@ class RAG:
         scenario = self.llm_inference(template=templates.classifier, question=question)
         scenario = self.extract_integers_from_string(scenario)
         if len(scenario) == 0:
-            return templates.error_question, '', ''
-        
-        scenario = [0]
+            return templates.error_question, templates.error_question, '', ''
         
         if scenario[0] == 0:
-            short_answer, answer, filename, slide_number = self.ask_db(templates.base_prompt, question)
-            return short_answer, answer, filename, slide_number
+            if 'отчет' in question:
+                    company = self.llm_inference(template=templates.company_extraction, question=question)
+                    if 'null' in company:
+                        return templates.error_report, templates.error_report, '', ''
+                    year = self.extract_year(question)
+                    
+                    report = templates.report_header.format(company=company, year=year)
+                    for field, field_question in templates.report.items():
+                        field_answer = self.ask_db(templates.base_prompt, field_question.format(company=company, year=year))
+                        report = '{}\n{}\n{}'.format(report, field, field_answer)
+                    return '', report, '', '' 
+        
+            else:
+                company = self.llm_inference(template=templates.company_extraction, question=question)
+                if company == 'null':
+                    short_answer, answer, filename, slide_number = self.ask_db(templates.base_prompt, question)
+                    return short_answer, answer, filename, slide_number
+
+                year = self.extract_year(question)
+                if not(str(year) in question):
+                    question = '{} за {} год'.format(question, year)
+                short_answer, answer, filename, slide_number = self.ask_db(templates.base_prompt, question)
+                return short_answer, answer, filename, slide_number              
 
         elif scenario[0] == 1:
-            company = self.llm_inference(template=templates.company_extraction, question=question)
-            if 'null' in company:
-                return templates.error_report, '', ''
-            year = self.extract_year(question)
-            
-            report = templates.report_header.format(company=company, year=year)
-            for field, field_question in templates.report.items():
-                field_answer = self.ask_db(templates.base_prompt, field_question.format(company=company, year=year))
-                report = '{}\n{}\n{}'.format(report, field, field_answer)
-            return '', report, '', ''   
-
-        elif scenario[0] == 2:
             answer = self.llm_inference(template=templates.about_company_prompt, question=question)
             return answer, answer, '', ''
-        
-        elif scenario[0] == 3:
-            company = self.llm_inference(template=templates.company_extraction, question=question)
-            if company == 'null':
-                short_answer, answer, filename, slide_number = self.ask_db(templates.base_prompt, question)
-                return short_answer, answer, filename, slide_number
-
-            year = self.extract_year(question)
-            if not(str(year) in question):
-                question = '{} за {} год'.format(question, year)
-            short_answer, answer, filename, slide_number = self.ask_db(templates.base_prompt, question)
-            return short_answer, answer, filename, slide_number
         
         else:
             return templates.error_question, templates.error_question, '', ''
