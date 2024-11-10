@@ -5,3 +5,5 @@ datasets
 .gradio
 upload_data
 milvus_demo.db
+sumbission.csv
+data/question_example.xlsx
