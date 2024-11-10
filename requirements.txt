@@ -1,1 +1,11 @@
-gradio
+gradio==5.5.0
+gradio_client==1.4.2
+huggingface-hub==0.26.2
+marker-pdf==0.3.10
+ollama==0.3.3
+openpyxl==3.1.5
+pymilvus==2.4.9
+PyMuPDF==1.24.13
+pymupdf4llm==0.0.17
+PyPDF2==3.0.1
+sentence-transformers==3.2.1
